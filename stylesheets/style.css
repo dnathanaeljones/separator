@@ -1,0 +1,11 @@
+body {
+  font-family: arial;
+  font-size: 20px; }
+  body #wrapper {
+    width: 900px;
+    margin: 0 auto; }
+  body #container {
+    padding: 20px;
+    color: #777; }
+    body #container #text {
+      display: none; }

@@ -1,0 +1,1 @@
+Experiments in preparing texts for memorization. 
