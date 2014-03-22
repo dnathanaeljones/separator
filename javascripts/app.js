@@ -9,18 +9,49 @@
     }
 
     App.prototype.init = function() {
-      var par, txt;
+      var par, text_data, txt;
       par = this.getParagrah();
-      txt = this.divide(par);
+      text_data = this.divide(par);
+      txt = this.textify(text_data);
       return this.showText(txt);
     };
 
     App.prototype.divide = function(text) {
-      var t0, t1, t2;
+      var d, div, index, main_divisions, t0, t1, t2, t3, _fn, _i, _len;
+      d = {};
       t0 = text.replace(/[\"”“]/g, "");
-      t1 = t0.replace(/([\.\!\?])/g, "$1<br/><br/>");
-      t2 = t1.replace(/([,;])/g, "$1<br/>");
-      return t2.replace(/(\sand)\s/g, "$1<br/>");
+      t1 = t0.replace(/([\.\!\?])\s/g, "$1||");
+      t2 = t1.replace(/([,;])\s/g, "$1^");
+      t3 = t2.replace(/\s(and\s)/g, "#$1");
+      t3 = t3.replace(/\^\#/g, "#");
+      t3 = t3.replace(/#/g, "^");
+      main_divisions = t3.split("||");
+      _fn = function() {
+        var i;
+        i = index + 1;
+        return d[i] = div.split("^");
+      };
+      for (index = _i = 0, _len = main_divisions.length; _i < _len; index = ++_i) {
+        div = main_divisions[index];
+        _fn();
+      }
+      return d;
+    };
+
+    App.prototype.textify = function(text_data) {
+      var clause, k, s, v, _i, _len;
+      s = "";
+      for (k in text_data) {
+        v = text_data[k];
+        s += "<div class='sentence'>";
+        s += "<label>" + k + "</label>";
+        for (_i = 0, _len = v.length; _i < _len; _i++) {
+          clause = v[_i];
+          s += "<p>" + clause;
+        }
+        s += "</div>";
+      }
+      return s;
     };
 
     App.prototype.showText = function(text) {

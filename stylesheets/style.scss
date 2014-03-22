@@ -14,4 +14,10 @@ body {
 		#text { display: none; }
 	}
 
+	.sentence {
+		position: relative; 
+		label { position: absolute; left: -40px; top: 0; color: #ccc; }
+		p { margin: 2px 0 4px; padding: 0; }
+		margin-bottom: 30px; 
+	}
 }

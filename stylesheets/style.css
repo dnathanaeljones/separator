@@ -9,3 +9,14 @@ body {
     color: #777; }
     body #container #text {
       display: none; }
+  body .sentence {
+    position: relative;
+    margin-bottom: 30px; }
+    body .sentence label {
+      position: absolute;
+      left: -40px;
+      top: 0;
+      color: #ccc; }
+    body .sentence p {
+      margin: 2px 0 4px;
+      padding: 0; }

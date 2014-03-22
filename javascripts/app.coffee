@@ -7,14 +7,38 @@ class separator.App
 
 	init: ->
 		par = @getParagrah()
-		txt = @divide(par)
+		text_data = @divide(par)
+		txt = @textify(text_data)
 		@showText(txt)
 
 	divide:(text) ->
-		t0 = text.replace(/[\"”“]/g, "")
-		t1 = t0.replace(/([\.\!\?])/g, "$1<br/><br/>")
-		t2 = t1.replace(/([,;])/g, "$1<br/>")
-		t2.replace(/(\sand)\s/g, "$1<br/>")
+		d = {}
+
+		t0 = text.replace(/[\"”“]/g, "") 			# remove quotes
+		t1 = t0.replace(/([\.\!\?])\s/g, "$1||") 		# sentence breaks
+		t2 = t1.replace(/([,;])\s/g, "$1^")			# clause breaks
+		t3 = t2.replace(/\s(and\s)/g, "#$1") 		# "and" breaks
+		t3 = t3.replace(/\^\#/g, "#")
+		t3 = t3.replace(/#/g, "^")						
+
+		main_divisions = t3.split("||")
+		for div, index in main_divisions
+			do ->	
+				i = index+1		
+
+				d[i] = div.split("^")
+
+		d
+	
+	textify: (text_data) ->
+		s = ""
+		for k, v of text_data
+			s+="<div class='sentence'>"
+			s+="<label>#{k}</label>"
+			for clause in v
+				s+="<p>#{clause}"
+			s+="</div>"
+		s
 
 	showText: (text) ->
 		$text = $("#text").html(text)
